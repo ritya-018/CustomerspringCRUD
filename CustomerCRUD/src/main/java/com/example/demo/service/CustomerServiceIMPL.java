@@ -37,12 +37,12 @@ public class CustomerServiceIMPL implements CustomerService {
 		}else
 			throw new InvaslidMovileNumber("INVALID MOBILE NUMBER..!!");
 		
-		Integer id=customer.getId();
-		if(cr.existsById(id))
-			throw new InvalidId("Duplicate Id..!!");
-		if(id<=0) {
-			throw new InvalidId("ID Must be positive.!!");
-		}
+//		Integer id=customer.getId();
+//		if(cr.existsById(id))
+//			throw new InvalidId("Duplicate Id..!!");
+//		if(id<=0) {
+//			throw new InvalidId("ID Must be positive.!!");
+//		}
 		
 			cr.save(customer);
 	}

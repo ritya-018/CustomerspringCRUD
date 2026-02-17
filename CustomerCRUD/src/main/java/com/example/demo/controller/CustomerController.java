@@ -17,42 +17,55 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.model.Customer;
 import com.example.demo.service.CustomerService;
 
-@CrossOrigin(origins = "*")
 @RestController
+//@CrossOrigin(origins = "http://localhost:5174")
 public class CustomerController {
 
 	@Autowired
 	private CustomerService cs;
-	
+
 	@PostMapping("add")
 	public void add(@RequestBody Customer c) {
 		cs.add(c);
 	}
 
 	@PostMapping("add all")
-	public void addAll(@RequestBody List<Customer>list) {
+	public void addAll(@RequestBody List<Customer> list) {
+
 		cs.addAll(list);
+
 	}
 
 	@GetMapping("display")
 	public List<Customer> display() {
 		return cs.display();
 	}
+
 	@DeleteMapping("delete/{id}")
 	public ResponseEntity<?> delete(@PathVariable Integer id) {
-		Customer temp=cs.delete(id);
-		if(temp==null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not Found !!");
+		Customer temp = cs.delete(id);
+		if (temp == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ID Not Found");
 		}
 		return ResponseEntity.ok(temp);
 	}
-	@PostMapping("search/mob/{mob}")
-	public ResponseEntity<?> searchMob(@PathVariable String mob) {
-		Customer temp=cs.findMob(mob);
-		if(temp==null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("NOT FOUND..!!");
+
+	@PostMapping("search/{id}")
+	public ResponseEntity<?> search(@PathVariable Integer id) {
+		Customer temp = cs.search(id);
+		if (temp == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ID Not Found");
 		}
 		return ResponseEntity.ok(temp);
 	}
-	
+
+	@PostMapping("search/mobno/{mobno}")
+	public ResponseEntity<?> searchMob(@PathVariable String mobno) {
+		Customer temp = cs.findMob(mobno);
+		if (temp == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not Found");
+		}
+		return ResponseEntity.ok(temp);
+	}
+
 }
